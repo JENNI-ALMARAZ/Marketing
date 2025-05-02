@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Marketing Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    .chart-container {
+      height: 400px;
+      width: 100%; /* Asegura que las gráficas se ajusten al 100% del ancho del contenedor */
+      max-width: 100%; /* Evita que las gráficas se salgan del contenedor */
+    }
+
+    /* Personalización rosa */
+    :root {
+      --rose: #f472b6;
+      --rose-dark: #be185d;
+      --rose-light: #fce7f3;
+    }
+  </style>
+</head>
+<body class="bg-rose-50 text-rose-900 flex items-center justify-center min-h-screen">
+  <!-- Main Content -->
+  <div class="w-full max-w-6xl p-8 md:p-12 bg-white shadow-lg rounded-lg">
+    <header class="mb-8 text-center">
+      <h2 class="text-4xl font-bold text-rose-800">Marketing Dashboard</h2>
+      <p class="text-rose-600">Track your campaigns and sales performance</p>
+    </header>
+
+    <section class="grid grid-cols-1 md:grid-cols-1 gap-8">
+      {% block content %}
+      <!-- Ejemplo de tarjetas con gráficas -->
+      <div class="bg-white rounded-2xl p-6 shadow-md border border-rose-200 flex flex-col justify-between">
+        <h3 class="text-lg font-semibold mb-4 text-rose-700">Sales Overview</h3>
+        <div id="chart1" class="chart-container mb-6"></div>
+        <button class="self-center mt-4 px-4 py-2 bg-rose-500 text-white rounded-md hover:bg-rose-600">View Details</button>
+      </div>
+      <div class="bg-white rounded-2xl p-6 shadow-md border border-rose-200 flex flex-col justify-between">
+        <h3 class="text-lg font-semibold mb-4 text-rose-700">Campaign ROI</h3>
+        <div id="chart2" class="chart-container mb-6"></div>
+        <button class="self-center mt-4 px-4 py-2 bg-rose-500 text-white rounded-md hover:bg-rose-600">View Details</button>
+      </div>
+      {% endblock %}
+    </section>
+  </div>
+
+  {% block scripts %}
+  <script>
+    Plotly.newPlot('chart1', [{
+      x: [1, 2, 3],
+      y: [10, 20, 30],
+      type: 'scatter',
+      marker: {color: '#f472b6'}
+    }], {margin: {t: 20}});
+
+    Plotly.newPlot('chart2', [{
+      x: ['Email', 'Social', 'Ads'],
+      y: [200, 150, 300],
+      type: 'bar',
+      marker: {color: '#be185d'}
+    }], {margin: {t: 20}});
+  </script>
+  {% endblock %}
+</body>
+</html>
